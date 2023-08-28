@@ -208,9 +208,6 @@ class ExtensibleFormMetaclass(DeclarativeFieldsMetaclass):
 			for field_name, field in new_class.base_fields.items():
 				for key, attr in pairs:
 					attrs = {}
-					# skip if overridden
-					if getattr(field, attr, None):
-						continue
 					# skip if not defined
 					if key not in meta.attrs:
 						continue
@@ -220,6 +217,10 @@ class ExtensibleFormMetaclass(DeclarativeFieldsMetaclass):
 					# add field specific attrs
 					if field_name in meta.attrs[key]:
 						attrs |= dict(meta.attrs[key][field_name])
+					# preference field attr definitions over meta attr definitions
+					field_attrs = getattr(field, attr, None)
+					if field_attrs:
+						attrs |= field_attrs
 					# apply collected attrs
 					if attrs:
 						setattr(field, attr, attrs)

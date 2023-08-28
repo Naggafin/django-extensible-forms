@@ -19,7 +19,7 @@ class BaseWidgetMutator:
 	def render(self, name, value, attrs=None, renderer=None):
 		template_name = "django_extensible_forms/forms/widgets/wrappers/mutated_widget_template.html"
 		context = self.mutate_context(self.widget.get_context(name, value, attrs))
-		context["templates"].reverse()  # to get FILO order
+		#context["templates"].reverse()  # to get FILO order
 		return self.widget._render(template_name, context, renderer)
 
 
@@ -32,8 +32,8 @@ class DatalistWidgetMutator(BaseWidgetMutator):
 
 	def mutate_context(self, context):
 		context = super().mutate_context(context)
-		context["datalist"] = self.widget._datalist  # add the datalist to the context
+		context['widget']["datalist"] = self.widget._datalist  # add the datalist to the context
 		context["templates"].append(
-			"extensible_forms/widgets/wrappers/datalist_wrapper.html"
+			"django_extensible_forms/forms/widgets/wrappers/datalist_wrapper.html"
 		)
 		return context

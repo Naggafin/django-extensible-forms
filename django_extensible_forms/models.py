@@ -7,6 +7,7 @@ from django.forms.models import (
 	ModelMultipleChoiceField as DjangoModelMultipleChoiceField,
 	fields_for_model,
 	modelform_factory as django_modelform_factory,
+	apply_limit_choices_to_to_formfield,
 )
 
 from .fields import ExtensibleFieldMixin, _monkey_patch_field
@@ -34,11 +35,14 @@ INVALID_DATALIST_INPUTS = {
 	"radio",
 	"button",
 	"submit",
+	"select",
 }
 
 
 def extensible_formfield_callback(field, **formfield_kwargs):
 	formfield = _monkey_patch_field(field.formfield(**formfield_kwargs))
+	# narrow choices down before any attempt at formulating a datalist
+	apply_limit_choices_to_to_formfield(formfield)
 	if (
 		getattr(formfield.widget, "input_type", None) not in INVALID_DATALIST_INPUTS
 		and getattr(formfield, "choices", None) is not None
@@ -120,7 +124,7 @@ class ExtensibleModelFormMetaclass(ExtensibleFormMetaclass):
 				opts.help_texts,
 				opts.error_messages,
 				opts.field_classes,
-				# limit_choices_to will be applied during ModelForm.__init__().
+				# should be done in formfield_callback
 				apply_limit_choices_to=False,
 			)
 

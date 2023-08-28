@@ -53,7 +53,7 @@ class ExtensibleBoundField(RenderableFieldMixin, BoundField):
 		if self.field.readonly:
 			attrs["readonly"] = True
 		# set datalist HTML element if defined
-		if getattr(self.field, "datalist", None):
+		if getattr(self.field.widget, "_datalist", None):
 			attrs["list"] = html_id + "Options"
 		# set aria-describedby
 		if self.errors:
