@@ -103,9 +103,9 @@ class ExtensibleFormMetaclass(DeclarativeFieldsMetaclass):
 
 	def construct_class(mcs, meta, new_class):
 		# set attributes from metaclass for new instance
-		if meta.template_name:
+		if meta.template_name and 'template_name' not in vars(new_class):
 			new_class.template_name = meta.template_name
-		if meta.template_name_label:
+		if meta.template_name_label and 'template_name_label' not in vars(new_class):
 			new_class.template_name_label = meta.template_name_label
 		if meta.field_order:
 			new_class.field_order = meta.field_order
