@@ -7,7 +7,7 @@ Install from pypi with `pip install django-extensible-forms` or install directly
 ## Examples
 You're using AlpineJS. You want to use its `x-model` feature without having to manually write it out in HTML for each field. You also want custom CSS, without it being a pain in the ass to do. This can be done with the following:
 
-`python
+```python
 import django_extensible_forms as forms
 
 class MyForm(forms.Form):
@@ -27,11 +27,11 @@ class MyForm(forms.Form):
 				'password': {'x-model': "password"},
 			}
 		}
-`
+```
 
 Instantiating this form and rendering it produces the following HTML:
 
-`html
+```html
 <div>
 	<label for="id_username" class="required">Username:</label>
 	<input type="text" name="username" required autofocus x-model="username" id="id_username" class="form-control required">
@@ -42,7 +42,7 @@ Instantiating this form and rendering it produces the following HTML:
 	<input type="text" name="password" required autocomplete="new-password" x-model="password" id="id_password" class="form-control required">
 	<div id="id_passwordFeedback" class="errorlist" style="display: none;"></div>
 </div>
-`
+```
 
 Take notice of how our CSS is properly included ("required" is added automatically, though this can be customized on the form class definition) and our attributes were added accordingly. The `username` input has `x-model="username"` and the `autofocus` attributes, while the `password` input has `x-model="password"` and the `autocomplete="new-password"` attributes. Attributes and CSS can be added either directly as keywoed arguments to the field or through `Meta` definitions.
 
@@ -60,7 +60,7 @@ The preferred way to define custom attributes is through the `Meta` class interf
 `localized_fields` [`Iterable | str`] defines which fields should use i18n localization for presentation. Specify `'__all__'` to include all fields. Otherwise, an iterable of field names to localize should be used.
 `css` [`dict`] defines the CSS for the form. The `dict` specified should be structured like so, with any given key-value pair being optional to include:
 
-`python
+```python
 css = {
 	'form': {
 		'error_css_class': "custom-error-class",
@@ -88,11 +88,11 @@ css = {
 		'<field_name_here>': "custom-help-text-css",
 	}
 }
-`
+```
 
 `attrs` [`dict`] defines the attributes for the form. The `dict` specified should be structured like so, with any given key-value pair being optional to include:
 
-`python
+```python
 attrs = {
 	'fields': {
 		'__all__': {'data-example-attr': "customValue"},
@@ -107,7 +107,7 @@ attrs = {
 		'<field_name_here>': {'data-example-attr': "customValue"},
 	},
 }
-`
+```
 
 ## Define attributes through field definitions
 Any attribute you could specify in `Meta` can be done directly within the field definition. The available extra parameters are `css`, `label_css` , `error_css`, `separator_css`, `help_text_css`, `attrs`, `label_attrs`, `separator_attrs`, `help_text_attrs`, `bf_class`, and `template_name`. *Any extra keyword argument which does not match an argument in the field's `__init__()` function spec will be applied as an HTML attribute.* This is why setting `autofocus=True` on the `CharField` for `username` in the example produced the result it did. The same result could've been achieved by passing `attrs={'autofocus': True}` instead.
