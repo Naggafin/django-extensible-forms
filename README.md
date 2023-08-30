@@ -53,11 +53,17 @@ I apologize in advance for the brevity of the documentation here. I plan to writ
 The preferred way to define custom attributes is through the `Meta` class interface. The following fields are available for customization in the `Meta` API: `template_name`, `template_name_label`, `css`, `attrs`, `help_texts`, `error_class`, `field_error_class`, `localized_fields`, `field_order`. I'll go into detail what they're for and how to use each now.
 
 `template_name` [`str`] sets the template for the form to use. You can still set the template the old way as well by defining it directly on the form. If you do that, the declaration on the form itself takes precedence over the declaration within the `Meta` class.
+
 `template_name_label` [`str`] sets the template for labels for fields to use. You can still set the template the old way as well by defining it directly on the form. If you do that, the declaration on the form itself takes precedence over the declaration within the `Meta` class.
+
 `error_class` [`object`] defines what class to use to render non-field errors.
+
 `field_error_class` [`object`] defines what class to use to render field errors.
+
 `field_order` [`Iterable`] defines what order the fields should appear in. This has no effect if this is manually declared within your HTML template for the form.
+
 `localized_fields` [`Iterable | str`] defines which fields should use i18n localization for presentation. Specify `'__all__'` to include all fields. Otherwise, an iterable of field names to localize should be used.
+
 `css` [`dict`] defines the CSS for the form. The `dict` specified should be structured like so, with any given key-value pair being optional to include:
 
 ```python
@@ -110,17 +116,27 @@ attrs = {
 ```
 
 ## Define attributes through field definitions
-Any attribute you could specify in `Meta` can be done directly within the field definition. The available extra parameters are `css`, `label_css` , `error_css`, `separator_css`, `help_text_css`, `attrs`, `label_attrs`, `separator_attrs`, `help_text_attrs`, `bf_class`, and `template_name`. *Any extra keyword argument which does not match an argument in the field's `__init__()` function spec will be applied as an HTML attribute.* This is why setting `autofocus=True` on the `CharField` for `username` in the example produced the result it did. The same result could've been achieved by passing `attrs={'autofocus': True}` instead.
+Any attribute you could specify in `Meta` can be done directly within the field definition. The available extra parameters are `css`, `label_css` , `error_css`, `separator_css`, `help_text_css`, `attrs`, `label_attrs`, `separator_attrs`, `help_text_attrs`, `bf_class`, and `template_name`. **Any extra keyword argument which does not match an argument in the field's `__init__()` function spec will be applied as an HTML attribute.** This is why setting `autofocus=True` on the `CharField` for `username` in the example produced the result it did. The same result could've been achieved by passing `attrs={'autofocus': True}` instead.
 I'll detail what each keyword argument is for now:
 
 `css` [`str | Iterable`] defines what shall appear in the HTML `class` property on the `input` tag. If there is a conflicting `Meta` defintion, this definition takes precedence.
+
 `label_css` [`str | Iterable`] defines what shall appear in the HTML `class` property on the `label` tag. If there is a conflicting `Meta` defintion, this definition takes precedence.
+
 `error_css` [`str | Iterable`] defines what shall appear in the HTML `class` property on the `div` tag containing field errors. If there is a conflicting `Meta` defintion, this definition takes precedence.
+
 `separator_css` [`str | Iterable`] defines what shall appear in the HTML `class` property on the `div` tag containing the field as a whole (input, label, help text, errors). If there is a conflicting `Meta` defintion, this definition takes precedence.
+
 `help_text_css` [`str | Iterable`] defines what shall appear in the HTML `class` property on the `div` tag containing the help text. If there is a conflicting `Meta` defintion, this definition takes precedence.
+
 `attrs` [`dict`] defines what custom attributes should appear in the HTML for the `input` tag. If there is a conflicting `Meta` defintion, the declarations within the field definition combine with the declarations in the `Meta` definition, with those defined in the field taking precedence.
+
 `label_attrs` [`dict`] defines what custom attributes should appear in the HTML for the `label` tag. If there is a conflicting `Meta` defintion, the declarations within the field definition combine with the declarations in the `Meta` definition, with those defined in the field taking precedence.
+
 `separator_attrs` [`dict`] defines what custom attributes should appear in the HTML for the `div` tag containing the field as a whole (input, label, help text, errors). If there is a conflicting `Meta` defintion, the declarations within the field definition combine with the declarations in the `Meta` definition, with those defined in the field taking precedence.
+
 `help_text_attrs` [`dict`] defines what custom attributes should appear in the HTML for the `div` tag containing the help text. If there is a conflicting `Meta` defintion, the declarations within the field definition combine with the declarations in the `Meta` definition, with those defined in the field taking precedence.
+
 `bf_class` [`object`] defines what class to use as this field's BoundField class for rendering.
+
 `template_name` [`str`] defines what template to use to render the field as a whole, which includes the separator element, the widget, any errors, and help text. This is not to be confused with the widget template; it does not override that.
