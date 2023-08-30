@@ -1,14 +1,14 @@
 [build-system]
-requires = ["hatchling", "django", "flatdict"]
+requires = ["hatchling", "django"]
 build-backend = "hatchling.build"
 
 [project]
 name = "django-extensible-forms"
-version = "0."
+version = "1.0"
 authors = [
   { name="naggafin", email="nevincoutu@gmail.com" },
 ]
-description = "Sensible forms for django."
+description = "Sensible form extensions for django."
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
@@ -18,5 +18,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/naggafin/django-urls-templatetag"
-"Bug Tracker" = "https://github.com/naggafin/django-urls-templatetag/issues"
+"Homepage" = "https://github.com/naggafin/django-extensible-forms"
+"Bug Tracker" = "https://github.com/naggafin/django-extensible-forms/issues"
