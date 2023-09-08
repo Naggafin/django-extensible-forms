@@ -427,7 +427,7 @@ class UsernameField(CharField):
 				}
 			)
 			return queryset
-		return self._model.objects.all()
+		return self._model.objects.filter(is_active=True)
 
 	def __deepcopy__(self, memo):
 		result = super().__deepcopy__(memo)
