@@ -4,6 +4,23 @@
 ## Installation
 Install from pypi with `pip install django-extensible-forms` or install directly with `git clone https://github.com/Naggafin/django-extensible-forms.git && cd django-extensible-forms/ && pip install .`
 
+Once the package is installed, add it to your project by including the following in your `settings.py`:
+
+```python
+INSTALLED_APPS = [
+	"django_extensible_forms",
+	"django_extensible_forms.bootstrap5",  # if you want Bootstrap5 niceities
+	
+	...
+	
+	# goes last
+	"django.forms",
+]
+
+FORM_RENDERER = "django_extensible_forms.renderers.TemplatesSetting"
+```
+
+
 ## Examples
 You're using AlpineJS. You want to use its `x-model` feature without having to manually write it out in HTML for each field. You also want custom CSS, without it being a pain in the ass to do. This can be done with the following:
 
