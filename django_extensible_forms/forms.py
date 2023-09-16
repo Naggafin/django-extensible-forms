@@ -370,6 +370,7 @@ class ExtensibleFormMixin:
 		attrs: dict = None,
 		localized_fields: list | tuple | str = None,
 		field_error_class: FieldErrorMixin = None,
+		template_name: str = None,
 		**kwargs,
 	):
 		super().__init__(*args, **kwargs)
@@ -390,6 +391,18 @@ class ExtensibleFormMixin:
 			configure_form_attrs(self, attrs)
 		if localized_fields:
 			configure_form_localization(self, localized_fields)
+		if template_name:
+			self.template_name = template_name
+
+	@property
+	def template_name(self):
+		if hasattr(self, '_template_name'):
+			return self._template_name
+		return self.renderer.form_template_name
+	
+	@template_name.setter
+	def template_name(self, value):
+		self._template_name = value
 
 	# identitical to django implementation except bf is passed to self.field_error_class
 	def get_context(self):
