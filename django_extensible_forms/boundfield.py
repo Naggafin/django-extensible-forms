@@ -160,7 +160,7 @@ class ExtensibleBoundField(RenderableFieldMixin, BoundField):
 			attrs["class"] = set(attrs["class"].split()) if "class" in attrs else set()
 			attrs["class"] |= set(
 				self.field.help_text_css.split()
-				if hasattr(self.field.separator_css, "split")
+				if hasattr(self.field.help_text_css, "split")
 				else self.field.help_text_css
 			)
 			attrs["class"] -= EMPTY_VALUES
