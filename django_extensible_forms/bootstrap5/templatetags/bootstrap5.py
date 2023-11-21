@@ -11,15 +11,15 @@ register = template.Library()
 
 @register.filter
 def bootstrapify(obj: Form | BoundField):
-    if isinstance(obj, Form):
-        form = obj
-        for field in form.fields.values():
-            _monkey_patch_field(field)
-        return form
-    elif isinstance(obj, BoundField):
-        form = obj.form
-        field = obj.field
-        _monkey_patch_field(field)
-        bf = field.get_bound_field(form, obj.name)
-        form._bound_fields_cache[obj.name] = bf
-        return bf
+	if isinstance(obj, Form):
+		form = obj
+		for field in form.fields.values():
+			_monkey_patch_field(field)
+		return form
+	elif isinstance(obj, BoundField):
+		form = obj.form
+		field = obj.field
+		_monkey_patch_field(field)
+		bf = field.get_bound_field(form, obj.name)
+		form._bound_fields_cache[obj.name] = bf
+		return bf

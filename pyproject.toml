@@ -2,6 +2,15 @@
 requires = ["hatchling", "django"]
 build-backend = "hatchling.build"
 
+[tool.ruff]
+ignore = ["E501"]
+
+[tool.ruff.format]
+indent-style = "tab"
+
+[tool.ruff.pydocstyle]
+convention = "pep257"
+
 [project]
 name = "django-extensible-forms"
 version = "0.9.1"

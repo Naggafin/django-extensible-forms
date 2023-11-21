@@ -7,4 +7,4 @@ register = template.Library()
 
 @register.filter
 def pop(stack: list):
-    return stack.pop()
+	return stack.pop()
